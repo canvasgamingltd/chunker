@@ -293,10 +293,9 @@ public class PreGeneratorCommands implements CommandExecutor, TabCompleter {
 
 		// kick off each world
 		for (Map.Entry<String, Integer> entry : coresByWorld.entrySet()) {
-			if (!noPlayers) break;
 			String worldName = entry.getKey();
 			World world = Bukkit.getWorld(worldName);
-			if (world == null) continue;
+			if (world == null || !world.getPlayers().isEmpty()) continue;
 			currentBorderChunks = calculateChunksInBorder(world);
 			String radiusConfig = PluginSettings.getRadius(worldName);
 			long chunks = parseRadius(radiusConfig);

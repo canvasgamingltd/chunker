@@ -7,6 +7,7 @@ import org.bukkit.World;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -164,6 +165,23 @@ public class ServerStateManager implements Listener {
             commands.getActivePreGenWorlds().remove(worldName);
             this.optimizationDone = false;
         }
+    }
+
+    @EventHandler
+    private void change(final PlayerChangedWorldEvent event) {
+        for (String worldName : commands.getActivePreGenWorlds()) {
+            World world = Bukkit.getWorld(worldName);
+
+            if (!event.getPlayer().getWorld().equals(world)) {
+                return;
+            }
+
+            commands.getPreGenerator().disable(Bukkit.getConsoleSender(), world, false);
+            commands.getActivePreGenWorlds().remove(worldName);
+            this.optimizationDone = false;
+        }
+
+        this.optimizeServer();
     }
 
     @EventHandler
