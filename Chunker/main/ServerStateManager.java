@@ -146,10 +146,7 @@ public class ServerStateManager implements Listener {
         this.optimizationDone = false;
 
         Bukkit.getPluginManager().registerEvents(this, plugin);
-
-        if (noPlayersOnline()) {
-            scheduler.scheduleDelayed(this::optimizeServer, 40L);
-        }
+        scheduler.scheduleDelayed(this::optimizeServer, 40L);
     }
 
 //    @EventHandler(priority = EventPriority.HIGHEST)
