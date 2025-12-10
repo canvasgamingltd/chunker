@@ -374,7 +374,7 @@ public class PreGeneratorCommands implements CommandExecutor, TabCompleter {
 
 		List<String> names = new ArrayList<>();
 		for (File f : files) {
-			if (f.isDirectory() && new File(f, "level.dat").exists()) {
+			if (f.isDirectory()) {
 				names.add(f.getName());
 			}
 		}

@@ -212,6 +212,10 @@ public class ServerStateManager implements Listener {
 
     private void unloadAllChunks() {
         for (World world : Bukkit.getWorlds()) {
+            if (!world.getPlayers().isEmpty()) {
+                continue; // Skip worlds with players
+            }
+
             for (Chunk chunk : world.getLoadedChunks()) {
                 if (scheduler instanceof FoliaScheduler) {
                     Bukkit.getRegionScheduler()
