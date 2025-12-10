@@ -14,6 +14,8 @@ import static main.ConsoleColorUtils.*;
  */
 public class Save {
 
+    public static boolean ENABLE_SAVING = false;
+
 	/**
 	 * Saves the current state of the given PreGenerationTask to a file in the plugin's data folder.
 	 *
@@ -21,7 +23,7 @@ public class Save {
 	 * @param task   the PreGenerationTask whose state is to be saved
 	 */
 	public void state(JavaPlugin plugin, PreGenerationTask task) {
-		if (!task.enabled) {
+		if (!task.enabled || !ENABLE_SAVING) {
 			return;
 		}
 		File dataFolder = plugin.getDataFolder();
