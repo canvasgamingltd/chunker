@@ -152,46 +152,29 @@ public class ServerStateManager implements Listener {
         }
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST)
-    public void onPlayerJoin(PlayerJoinEvent event) {
-        for (String worldName : commands.getActivePreGenWorlds()) {
-            World world = Bukkit.getWorld(worldName);
-
-            if (!event.getPlayer().getWorld().equals(world)) {
-                return;
-            }
-
-            commands.getPreGenerator().disable(Bukkit.getConsoleSender(), world, false);
-            commands.getActivePreGenWorlds().remove(worldName);
-            this.optimizationDone = false;
-        }
-    }
-
-    @EventHandler
-    private void change(final PlayerChangedWorldEvent event) {
-        for (String worldName : commands.getActivePreGenWorlds()) {
-            World world = Bukkit.getWorld(worldName);
-
-            if (!event.getPlayer().getWorld().equals(world)) {
-                return;
-            }
-
-            commands.getPreGenerator().disable(Bukkit.getConsoleSender(), world, false);
-            commands.getActivePreGenWorlds().remove(worldName);
-            this.optimizationDone = false;
-        }
-
-        this.optimizeServer();
-    }
-
-    @EventHandler
-    public void onPlayerQuit(PlayerQuitEvent event) {
-        scheduler.scheduleDelayed(() -> {
-            if (noPlayersOnline() && !optimizationDone) {
-                optimizeServer();
-            }
-        }, 20L);
-    }
+//    @EventHandler(priority = EventPriority.HIGHEST)
+//    public void onPlayerJoin(PlayerJoinEvent event) {
+//        for (String worldName : commands.getActivePreGenWorlds()) {
+//            World world = Bukkit.getWorld(worldName);
+//
+//            if (!event.getPlayer().getWorld().equals(world)) {
+//                return;
+//            }
+//
+//            commands.getPreGenerator().disable(Bukkit.getConsoleSender(), world, false);
+//            commands.getActivePreGenWorlds().remove(worldName);
+//            this.optimizationDone = false;
+//        }
+//    }
+//
+//    @EventHandler
+//    public void onPlayerQuit(PlayerQuitEvent event) {
+//        scheduler.scheduleDelayed(() -> {
+//            if (noPlayersOnline() && !optimizationDone) {
+//                optimizeServer();
+//            }
+//        }, 20L);
+//    }
 
     private void optimizeServer() {
         if (!PluginSettings.isInitialized()) {
