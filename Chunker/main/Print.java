@@ -1,5 +1,7 @@
 package main;
 
+import net.blox.engine.Engine;
+
 import java.util.concurrent.TimeUnit;
 import static main.ConsoleColorUtils.*;
 
@@ -38,11 +40,17 @@ public class Print {
 		if (!task.enabled) {
 			return;
 		}
+
 		task.printScheduler.setEnabled(false);
 		long elapsedTime = (task.timerEnd - task.timerStart) / 1000;
 		logPlain("Total time: " + format(elapsedTime));
 		task.timerStart = 0;
 		task.timerEnd = 0;
+
+        // Enable the BR server if the world is "village"
+        if (task.world.getName().equals("village")) {
+            Engine.participate();
+        }
 	}
 
 	/**

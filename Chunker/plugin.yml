@@ -6,6 +6,8 @@ description: Fast and Efficient Async Minecraft World Pre-generator
 api-version: 1.21
 folia-supported: true
 paperweight-mappings-namespace: mojang
+depend:
+  - GameEngine
 commands:
   pregen:
     description: "Enable chunk pre-generation, or reset pregen state. Usage: /pregen <ParallelTasksMultiplier> <PrintUpdateDelay> <world> <RadiusInBlocks/Chunks/Regions> OR /pregen reset <world>"
